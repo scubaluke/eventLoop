@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Event Loop</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  <style>
+    body {
+      margin: auto;
+      text-align: center;
+    }
+
+    .go {
+      margin: 5rem;
+      background: #ff4967;
+      padding: 5rem;
+      width: 25rem;
+      height: 25rem;
+      transition: all .5s;
+      text-align: center;
+    }
+
+    .go.circle {
+      border-radius: 50%;
+      color: hsl(224, 93%, 40%);
+
+    }
+
+    .go.red {
+      color: rgb(23, 197, 7);
+    }
+
+    .go.purple {
+      background: purple;
+    }
+
+    .go.fade {
+      opacity: 0;
+    }
+  </style>
+
+  <div class="go">click me</div>
+  <script>
+    // function changeGoToRed() {
+    //   console.log('clicked');
+    //   go.toggleAttribute('red');
+    // }
+    const go = document.querySelector('.go');
+    go.addEventListener('click', function (e) {
+      const el = e.currentTarget;
+      console.log(el);
+      el.textContent = 'GO';
+      setTimeout(function () {
+        el.classList.add('circle');
+        setTimeout(function MakeRed() {
+          el.classList.add('red');
+        }, 500);
+        setTimeout(function () {
+          el.classList.remove('circle');
+        }, 250);
+        setTimeout(function () {
+          el.classList.remove('red');
+          el.classList.add('purple');
+          setTimeout(function () {
+            el.classList.add('fade');
+          }, 2500);
+          setInterval(() => {
+            el.classList.add('circle');
+            el.classList.add('red');
+          }, 250);
+          setInterval(() => {
+            el.classList.remove('red');
+            el.classList.remove('circle');
+          }, 500);
+        }, 300);
+      }, 2000);
+    });
+//  go.addEventListener('click', () => go.toggleAttribute('red'));
+
+// console.log('starting');
+// setTimeout(function () {
+//   console.log('running');
+// }, 2000);
+// console.log('ending');
+  </script>
+
+</body>
+
+</html>
