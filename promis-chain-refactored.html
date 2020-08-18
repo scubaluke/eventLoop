@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Event Loop</title>
+  <link rel="stylesheet" href="../base.css">
+</head>
+
+<body>
+  <style>
+    body {
+      margin: auto;
+      text-align: center;
+    }
+
+    .go {
+      margin: 5rem;
+      background: #ff4967;
+      padding: 5rem;
+      width: 25rem;
+      height: 25rem;
+      transition: all .5s;
+      text-align: center;
+    }
+
+    .go.circle {
+      border-radius: 50%;
+      color: hsl(224, 93%, 40%);
+
+    }
+
+    .go.red {
+      color: rgb(23, 197, 7);
+    }
+
+    .go.purple {
+      background: purple;
+    }
+
+    .go.fade {
+      opacity: 0;
+    }
+  </style>
+
+  <div class="go">click me</div>
+  <script>
+    const wait = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+
+    wait(1500).then(() => {
+      console.log('done');
+    });
+    const go = document.querySelector('.go');
+
+    async function animate2(e) {
+      const el = e.currentTarget;
+      el.textContent = 'GO';
+      await wait(1500);
+      el.classList.add('circle');
+      await wait(500);
+      el.classList.add('red');
+      await wait(400);
+      el.classList.remove('circle');
+      await wait(500);
+      el.classList.add('purple');
+      await wait(250);
+      el.classList.add('circle');
+      el.classList.remove('red');
+      await wait(250);
+      el.classList.add('red');
+      el.classList.remove('circle');
+      el.classList.remove('purple');
+      await wait(250);
+      el.classList.add('circle');
+      el.classList.remove('red');
+      await wait(250);
+      el.classList.add('red');
+      el.classList.add('purple');
+      el.classList.remove('circle');
+      await wait(250);
+      el.classList.add('circle');
+      el.classList.remove('red');
+      await wait(250);
+      el.classList.add('purple');
+      el.classList.remove('circle');
+      await wait(250);
+      el.classList.add('fade');
+    }
+
+    function animate(e) {
+      const el = e.currentTarget;
+      el.textContent = 'GO';
+      wait(1500)
+        .then(() => {
+          el.classList.add('circle');
+          return wait(500);
+        })
+        .then(() => {
+          el.classList.add('red');
+          return wait(400);
+        })
+        .then(() => {
+          el.classList.remove('circle');
+          return wait(500);
+        })
+        .then(() => {
+          el.classList.add('purple');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('circle');
+          el.classList.remove('red');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('red');
+          el.classList.remove('circle');
+          el.classList.remove('purple');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('circle');
+          el.classList.remove('red');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('red');
+          el.classList.add('purple');
+          el.classList.remove('circle');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('circle');
+          el.classList.remove('red');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('purple');
+          el.classList.remove('circle');
+          return wait(250);
+        })
+        .then(() => {
+          el.classList.add('fade');
+        });
+    }
+
+    go.addEventListener('click', animate2);
+
+    // function changeGoToRed() {
+    //   console.log('clicked');
+    //   go.toggleAttribute('red');
+    // }
+    go.addEventListener('clickxxxxx', function (e) {
+      const el = e.currentTarget;
+      console.log(el);
+      el.textContent = 'GO';
+      setTimeout(function () {
+        el.classList.add('circle');
+        setTimeout(function MakeRed() {
+          el.classList.add('red');
+        }, 500);
+        setTimeout(function () {
+          el.classList.remove('circle');
+        }, 250);
+        setTimeout(function () {
+          el.classList.remove('red');
+          el.classList.add('purple');
+          setTimeout(function () {
+            el.classList.add('fade');
+          }, 2500);
+          setInterval(() => {
+            el.classList.add('circle');
+            el.classList.add('red');
+          }, 250);
+          setInterval(() => {
+            el.classList.remove('red');
+            el.classList.remove('circle');
+          }, 500);
+        }, 300);
+      }, 2000);
+    });
+//  go.addEventListener('click', () => go.toggleAttribute('red'));
+
+// console.log('starting');
+// setTimeout(function () {
+//   console.log('running');
+// }, 2000);
+// console.log('ending');
+  </script>
+
+</body>
+
+</html>
